@@ -4,8 +4,8 @@ import { EmployeeService } from '../employee.service';
 @Component({
   selector: 'employee-detail',
   template: `
-  <h2> Emplyee List</h2>
-  <ul *ngFor="let employee of employee">
+  <h2> Employee List</h2>
+  <ul *ngFor="let employee of employees">
     <li>{{employee.id}} {{employee.name}} {{employee.age}}</li>
   </ul>
   `,
@@ -13,11 +13,12 @@ import { EmployeeService } from '../employee.service';
 })
 export class EmployeeDetailsComponent implements OnInit {
 
-  public employee =[]
+  public employees =[]
   constructor(private _employeeService: EmployeeService) { }
 
   ngOnInit() {
-    this.employee = this._employeeService.getEmployees();
-  }
+    this._employeeService.getEmployees()
+       .subscribe(data => this.employees = data);
+ }
 
 }

@@ -1,11 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { EmployeeService } from '../employee.service';
 
 @Component({
   selector: 'employee-list',
   template: `
-  <h2> Emplyee List</h2>
-  <ul *ngFor="let employee of employee">
+  <h2> Employee List</h2>
+  <ul *ngFor="let employee of employees">
     <li>{{employee.name}}</li>
   </ul>
   `,
@@ -13,11 +13,12 @@ import { EmployeeService } from '../employee.service';
 })
 export class TestComponent implements OnInit {
 
-  public employee = []
+  public employees = []
   constructor(private _employeeService: EmployeeService) { }
 
   ngOnInit() {
-    this.employee = this._employeeService.getEmployees();
+     this._employeeService.getEmployees()
+        .subscribe(data => this.employees = data);
   }
 
 
